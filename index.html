@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designed by Apple & Art style</title>
+    
+    <style>
+        /* Обнуление и базовая магия */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000000; /* Абсолютный черный */
+            color: #f5f5f7;            /* Молочно-белый цвет Apple */
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            max-width: 680px;          /* Компактная ширина контента */
+            margin: 0 auto;
+            padding: 80px 24px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Атмосферный свет на фоне */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 102, 204, 0.15) 0%, rgba(204, 0, 102, 0.05) 60%, transparent 100%);
+            filter: blur(60px);
+            z-index: -1;
+        }
+
+        /* Градиентный заголовок */
+        h1 {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            text-align: center;
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: appleIntro 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        p.subtitle {
+            font-size: 20px;
+            color: #86868b;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            line-height: 1.4;
+            opacity: 0;
+            animation: appleIntro 1s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+        }
+
+        /* ================= КОМПАКТНАЯ АСИММЕТРИЧНАЯ КАРУСЕЛЬ ================= */
+        .scroll-wrapper {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 20px 0;
+            cursor: grab;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;  
+            scrollbar-width: none; 
+        }
+        .scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .scroll-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .masonry-grid {
+            display: inline-grid;
+            grid-template-rows: repeat(2, 110px); /* Уменьшили высоту рядов до 110px */
+            grid-auto-flow: column;
+            gap: 14px; /* Компактные зазоры */
+            padding-left: calc((100vw - 632px) / 2); /* Выравнивание по сетке контента */
+            padding-right: 40px;
+        }
+
+        /* Плитки стали намного меньше */
+        .tile {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #161617;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s;
+        }
+
+        /* Обрезаем фото под новые компактные размеры */
+        .tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Фотографии аккуратно обрезаются, не сжимаясь */
+            display: block;
+        }
+
+        .tile:hover {
+            transform: scale(1.05) translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Компактные размеры плиток */
+        .w-sm { width: 110px; } /* Идеальный квадрат */
+        .w-md { width: 150px; } /* Небольшой прямоугольник */
+        .w-lg { width: 190px; } /* Вытянутая плитка */
+
+        /* Легкие хаотичные сдвиги вверх/вниз */
+        .h-shift-up { transform: translateY(-8px); }
+        .h-shift-down { transform: translateY(8px); }
+        
+        .tile:hover.h-shift-up { transform: scale(1.05) translateY(-10px); }
+        .tile:hover.h-shift-down { transform: scale(1.05) translateY(6px); }
+
+        /* ================= СТАРЫЕ КАРТОЧКИ И НАПОЛНЕНИЕ ================= */
+        .card {
+            background: rgba(22, 22, 23, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 32px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: appleIntro 1s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
+        }
+
+        h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #86868b;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .spec-label { color: #86868b; }
+        .spec-value { color: #f5f5f7; font-weight: 500; }
+
+        .cta-button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0 auto;
+            background-color: #0071e3;
+            color: #ffffff;
+            border: none;
+            padding: 12px 22px;
+            font-size: 15px;
+            font-weight: 400;
+            border-radius: 980px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #147ce5;
+            transform: translateY(-1px);
+        }
+
+        .apple-link {
+            display: block;
+            text-align: center;
+            color: #2997ff;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 24px;
+        }
+
+        .apple-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Интро-анимация */
+        @keyframes appleIntro {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(20px);
+                filter: blur(4px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML. Совершенно заново.</h1>
+    <p class="subtitle">Мощный. Минималистичный. Разработан за несколько шагов прямо на вашем компьютере.</p>
+    
+    <!-- МЕНЬШАЯ АСИММЕТРИЧНАЯ ГАЛЕРЕЯ -->
+    <div class="scroll-wrapper" id="scrollWrapper">
+        <div class="masonry-grid" id="masonryGrid">
+            
+            <!-- Основной ряд плиток -->
+            <div class="tile w-md h-shift-up"><img src="1.png" alt="1"></div>
+            <div class="tile w-lg h-shift-down"><img src="2.jpg" alt="2"></div>
+            <div class="tile w-sm"><img src="3.jpg" alt="3"></div>
+            <div class="tile w-md h-shift-up"><img src="4.jpg" alt="4"></div>
+            <div class="tile w-lg"><img src="5.jpg" alt="5"></div>
+            <div class="tile w-sm h-shift-down"><img src="6.jpg" alt="6"></div>
+            <div class="tile w-md"><img src="7.jpg" alt="7"></div>
+
+            <!-- Дублирующий ряд для бесконечной прокрутки -->
+            <div class="tile w-md h-shift-up"><img src="1.png" alt="1"></div>
+            <div class="tile w-lg h-shift-down"><img src="2.jpg" alt="2"></div>
+            <div class="tile w-sm"><img src="3.jpg" alt="3"></div>
+            <div class="tile w-md h-shift-up"><img src="4.jpg" alt="4"></div>
+            <div class="tile w-lg"><img src="5.jpg" alt="5"></div>
+            <div class="tile w-sm h-shift-down"><img src="6.jpg" alt="6"></div>
+            <div class="tile w-md"><img src="7.jpg" alt="7"></div>
+            
+        </div>
+    </div>
+
+    <!-- Вернувшееся наполнение сайта: карточка со спецификациями -->
+    <div class="card">
+        <h2>Архитектура кода</h2>
+        <ul class="spec-list">
+            <li class="spec-item">
+                <span class="spec-label">Технология разметки</span>
+                <span class="spec-value">HTML5 Семантика</span>
+            </li>
+            <li class="spec-item">
+                <span class="spec-label">Стилизация</span>
+                <span class="spec-value">CSS3 Glassmorphism</span>
+            </li>
+            <li class="spec-item">
+                <span class="spec-label">Галерея медиа</span>
+                <span class="spec-value">Asymmetric Masonry 2x</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Интерактивная кнопка и ссылка -->
+    <button class="cta-button" onclick="alert('Успешно интегрировано в вашу систему.')">Активировать код</button>
+    <a href="https://apple.com" class="apple-link">Подробнее на apple.com ›</a>
+
+    <!-- Логика движения и зацепа мыши -->
+    <script>
+        const wrapper = document.getElementById('scrollWrapper');
+        const grid = document.getElementById('masonryGrid');
+        
+        let autoScrollSpeed = 0.4; 
+        let isMoving = true;
+        let isDown = false;
+        let startX, scrollLeft;
+
+        function step() {
+            if (isMoving && !isDown) {
+                wrapper.scrollLeft += autoScrollSpeed;
+                wrapper.scrollLeft += autoScrollSpeed;
+                
+                // Цикличность: когда прокрутили половину, незаметно возвращаем в начало
+                if (wrapper.scrollLeft >= grid.offsetWidth / 2) {
+                    wrapper.scrollLeft = 0;
+                }
+            }
+            requestAnimationFrame(step);
+        }
+        
+        // Запуск авто-прокрутки
+        requestAnimationFrame(step);
+
+        // Пауза движения при наведении мыши
+        wrapper.addEventListener('mouseenter', () => isMoving = false);
+        wrapper.addEventListener('mouseleave', () => isMoving = true);
+
+        // Логика ручного перетаскивания (Drag-to-scroll)
+        wrapper.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - wrapper.offsetLeft;
+            scrollLeft = wrapper.scrollLeft;
+        });
+
+        wrapper.addEventListener('mouseleave', () => isDown = false);
+        wrapper.addEventListener('mouseup', () => isDown = false);
+
+        wrapper.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - wrapper.offsetLeft;
+            const walk = (x - startX) * 1.5; 
+            wrapper.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+
+</body>
+</html>
