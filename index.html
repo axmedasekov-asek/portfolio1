@@ -1,331 +1,531 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designed by Apple & Art style</title>
-    
-    <style>
-        /* Обнуление и базовая магия */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Закажите сайт</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* Сброс и базовые стили */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      background: #000000;
+      color: #f5f5f7;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
 
-        body {
-            background-color: #000000; /* Абсолютный черный */
-            color: #f5f5f7;            /* Молочно-белый цвет Apple */
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-            max-width: 680px;          /* Компактная ширина контента */
-            margin: 0 auto;
-            padding: 80px 24px;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
 
-        /* Атмосферный свет на фоне */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 500px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 102, 204, 0.15) 0%, rgba(204, 0, 102, 0.05) 60%, transparent 100%);
-            filter: blur(60px);
-            z-index: -1;
-        }
+    /* Контент страницы */
+    main.content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 40px;
+      height: 100vh;
+      text-align: center;
+      user-select: none;
+    }
 
-        /* Градиентный заголовок */
-        h1 {
-            font-size: 44px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1.1;
-            text-align: center;
-            background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            opacity: 0;
-            animation: appleIntro 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
+    /* Металлический текст с округлыми буквами */
+    h1.metal-text {
+      font-weight: 700;
+      font-size: 54px;
+      letter-spacing: 0.06em;
+      max-width: 460px;
+      margin: 60px auto 12px auto;
+      color: #bbbfc4;
+      background: linear-gradient(135deg, #d1d5db 0%, #8a8f96 40%, #f3f4f6 60%, #b0b4b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter:
+        drop-shadow(0 0 2px rgba(255 255 255 / 0.2))
+        drop-shadow(0 1px 0 rgba(255 255 255 / 0.12));
+      text-transform: uppercase;
+      border-radius: 18px;
+      font-feature-settings: "calt" 1, "liga" 1;
+      line-height: 1.1;
+    }
 
-        p.subtitle {
-            font-size: 20px;
-            color: #86868b;
-            text-align: center;
-            max-width: 500px;
-            margin: 0 auto 40px auto;
-            line-height: 1.4;
-            opacity: 0;
-            animation: appleIntro 1s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
-        }
+    p.metal-subtitle {
+      max-width: 360px;
+      margin: 0 auto 40px auto;
+      font-weight: 500;
+      font-size: 20px;
+      color: #a1a5aa;
+      letter-spacing: 0.04em;
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    }
 
-        /* ================= КОМПАКТНАЯ АСИММЕТРИЧНАЯ КАРУСЕЛЬ ================= */
-        .scroll-wrapper {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            padding: 20px 0;
-            cursor: grab;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;  
-            scrollbar-width: none; 
-        }
-        .scroll-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-        .scroll-wrapper:active {
-            cursor: grabbing;
-        }
+    button.glass-button {
+      padding: 16px 48px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+      background: rgba(255 255 255 / 0.85);
+      border: none;
+      border-radius: 9999px;
+      box-shadow:
+        0 8px 32px rgba(255 255 255 / 0.35),
+        inset 0 -1px 0 #ddd,
+        inset 0 1px 0 #fff;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      outline-offset: 4px;
+    }
+    button.glass-button:hover {
+      background: rgba(255 255 255 / 0.95);
+      box-shadow:
+        0 12px 48px rgba(255 255 255 / 0.55),
+        inset 0 -1px 0 #eee,
+        inset 0 1px 0 #fff;
+      transform: translateY(-1.5px);
+    }
+    button.glass-button:active {
+      background: rgba(255 255 255 / 0.75);
+      box-shadow:
+        0 4px 14px rgba(255 255 255 / 0.3),
+        inset 0 -1px 0 #bbb,
+        inset 0 1px 0 #e3e3e3;
+      transform: translateY(1px);
+    }
 
-        .masonry-grid {
-            display: inline-grid;
-            grid-template-rows: repeat(2, 110px); /* Уменьшили высоту рядов до 110px */
-            grid-auto-flow: column;
-            gap: 14px; /* Компактные зазоры */
-            padding-left: calc((100vw - 632px) / 2); /* Выравнивание по сетке контента */
-            padding-right: 40px;
-        }
+    /* Кнопка меню слева вверху - вместо текста 3 полоски (гамбургер) */
+    #menuToggleButton {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1001;
+      width: 48px;
+      height: 48px;
+      background: rgba(255 255 255 / 0.12);
+      border-radius: 14px;
+      border: 1px solid rgba(255 255 255 / 0.09);
+      padding: 0;
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      user-select: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline-offset: 4px;
+      outline: none;
+    }
+    #menuToggleButton:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6);
+      background: rgba(255 255 255 / 0.3);
+    }
+    #menuToggleButton:hover {
+      background: rgba(255 255 255 / 0.21);
+      box-shadow:
+        0 4px 12px rgba(255 255 255 / 0.32);
+    }
 
-        /* Плитки стали намного меньше */
-        .tile {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #161617;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s;
-        }
+    /* Полоски гамбургера */
+    #menuToggleButton span {
+      position: relative;
+      display: block;
+      width: 24px;
+      height: 2.8px;
+      background: rgba(255 255 255 / 0.85);
+      border-radius: 2px;
+      box-shadow:
+        0 0 6px rgba(255 255 255 / 0.25);
+      transition: all 0.25s ease;
+    }
+    #menuToggleButton span::before,
+    #menuToggleButton span::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2.8px;
+      background: rgba(255 255 255 / 0.85);
+      border-radius: 2px;
+      box-shadow:
+        0 0 6px rgba(255 255 255 / 0.25);
+      transition: all 0.25s ease;
+      left: 0;
+    }
+    #menuToggleButton span::before {
+      top: -7px;
+    }
+    #menuToggleButton span::after {
+      top: 7px;
+    }
 
-        /* Обрезаем фото под новые компактные размеры */
-        .tile img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Фотографии аккуратно обрезаются, не сжимаясь */
-            display: block;
-        }
+    /* Меню - более прозрачное с эффектом преломления краев */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      user-select: none;
+    }
+    #overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-        .tile:hover {
-            transform: scale(1.05) translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      max-width: 80vw;
+      height: 100vh;
+      background:
+        linear-gradient(135deg,
+          rgba(255 255 255 / 0.07) 0%,
+          rgba(255 255 255 / 0.02) 50%,
+          rgba(255 255 255 / 0.07) 100%);
+      border-radius: 0 0 20px 0;
+      border: 1px solid rgba(255 255 255 / 0.05);
+      box-shadow: 0 0 48px rgba(255 255 255 / 0.1);
+      backdrop-filter: saturate(180%) blur(60px);
+      -webkit-backdrop-filter: saturate(180%) blur(60px);
+      padding: 48px 24px 24px 24px;
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1002;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      /* Эффект преломления на левом краю: */
+      box-shadow:
+        inset 16px 0 24px -8px rgba(255 255 255 / 0.25),
+        inset -8px 0 16px -8px rgba(255 255 255 / 0.05),
+        0 32px 56px -16px rgba(0 0 0 / 0.35);
+    }
+    #sideMenu.active {
+      transform: translateX(0);
+    }
 
-        /* Компактные размеры плиток */
-        .w-sm { width: 110px; } /* Идеальный квадрат */
-        .w-md { width: 150px; } /* Небольшой прямоугольник */
-        .w-lg { width: 190px; } /* Вытянутая плитка */
+    /* Пункты меню - прозрачные с эффектом преломления */
+    #sideMenu a.menu-item {
+      display: block;
+      padding: 14px 22px;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255 255 255 / 0.8);
+      text-decoration: none;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg,
+          rgba(255 255 255 / 0.05) 0%,
+          rgba(255 255 255 / 0.02) 50%,
+          rgba(255 255 255 / 0.05) 100%);
+      backdrop-filter: saturate(180%) blur(50px);
+      -webkit-backdrop-filter: saturate(180%) blur(50px);
+      box-shadow:
+        0 0 14px rgba(255 255 255 / 0.1);
+      user-select: none;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
 
-        /* Легкие хаотичные сдвиги вверх/вниз */
-        .h-shift-up { transform: translateY(-8px); }
-        .h-shift-down { transform: translateY(8px); }
-        
-        .tile:hover.h-shift-up { transform: scale(1.05) translateY(-10px); }
-        .tile:hover.h-shift-down { transform: scale(1.05) translateY(6px); }
+    #sideMenu a.menu-item:hover,
+    #sideMenu a.menu-item:focus {
+      background:
+        linear-gradient(135deg,
+          rgba(255 255 255 / 0.15) 0%,
+          rgba(255 255 255 / 0.08) 50%,
+          rgba(255 255 255 / 0.15) 100%);
+      color: #fff;
+      box-shadow:
+        0 0 24px rgba(255 255 255 / 0.35);
+      outline: none;
+    }
 
-        /* ================= СТАРЫЕ КАРТОЧКИ И НАПОЛНЕНИЕ ================= */
-        .card {
-            background: rgba(22, 22, 23, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 22px;
-            padding: 32px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: appleIntro 1s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
-        }
 
-        h2 {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: #86868b;
-            margin-bottom: 24px;
-            font-weight: 600;
-        }
+    /* Модальное окно согласия на обработку персональных данных */
+    #confirmationModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 1100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    #confirmationModal.active {
+      display: flex;
+    }
+    #confirmationModal .modal {
+      background: rgba(22, 22, 23, 0.75);
+      border-radius: 32px;
+      border: 1px solid rgba(255 255 255 / 0.12);
+      box-shadow: 0 16px 48px rgba(0 0 0 / 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 32px 40px;
+      min-width: 320px;
+      max-width: 420px;
+      color: #f5f5f7;
+      font-family: 'Inter', sans-serif;
+      user-select: text;
+      text-align: center;
+      outline: none;
+    }
+    #confirmationModal h2 {
+      margin-bottom: 16px;
+      font-weight: 700;
+      font-size: 24px;
+      color: #d0d3d7;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    #confirmationModal p.message {
+      color: #b3b3b8;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 1.4;
+      margin-bottom: 28px;
+    }
+    #confirmationModal button.confirm-button {
+      padding: 12px 32px;
+      background: rgba(255 255 255 / 0.9);
+      color: #000;
+      border: none;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255 255 255 / 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      user-select: none;
+      outline-offset: 3px;
+      font-family: 'Inter', sans-serif;
+    }
+    #confirmationModal button.confirm-button:hover,
+    #confirmationModal button.confirm-button:focus {
+      background: rgba(255 255 255 / 0.97);
+      outline: none;
+      transform: translateY(-2px);
+    }
+    #confirmationModal button.confirm-button:active {
+      background: rgba(255 255 255 / 0.75);
+      transform: translateY(2px);
+    }
 
-        .spec-list {
-            list-style: none;
-        }
-
-        .spec-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            font-size: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .spec-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .spec-label { color: #86868b; }
-        .spec-value { color: #f5f5f7; font-weight: 500; }
-
-        .cta-button {
-            display: block;
-            width: fit-content;
-            margin: 40px auto 0 auto;
-            background-color: #0071e3;
-            color: #ffffff;
-            border: none;
-            padding: 12px 22px;
-            font-size: 15px;
-            font-weight: 400;
-            border-radius: 980px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #147ce5;
-            transform: translateY(-1px);
-        }
-
-        .apple-link {
-            display: block;
-            text-align: center;
-            color: #2997ff;
-            font-size: 14px;
-            text-decoration: none;
-            margin-top: 24px;
-        }
-
-        .apple-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Интро-анимация */
-        @keyframes appleIntro {
-            from {
-                opacity: 0;
-                transform: scale(0.96) translateY(20px);
-                filter: blur(4px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-                filter: blur(0);
-            }
-        }
-    </style>
+  </style>
 </head>
 <body>
 
-    <h1>HTML. Совершенно заново.</h1>
-    <p class="subtitle">Мощный. Минималистичный. Разработан за несколько шагов прямо на вашем компьютере.</p>
-    
-    <!-- МЕНЬШАЯ АСИММЕТРИЧНАЯ ГАЛЕРЕЯ -->
-    <div class="scroll-wrapper" id="scrollWrapper">
-        <div class="masonry-grid" id="masonryGrid">
-            
-            <!-- Основной ряд плиток -->
-            <div class="tile w-md h-shift-up"><img src="1.png" alt="1"></div>
-            <div class="tile w-lg h-shift-down"><img src="2.jpg" alt="2"></div>
-            <div class="tile w-sm"><img src="3.jpg" alt="3"></div>
-            <div class="tile w-md h-shift-up"><img src="4.jpg" alt="4"></div>
-            <div class="tile w-lg"><img src="5.jpg" alt="5"></div>
-            <div class="tile w-sm h-shift-down"><img src="6.jpg" alt="6"></div>
-            <div class="tile w-md"><img src="7.jpg" alt="7"></div>
+  <!-- Кнопка открытия меню -->
+  <button id="menuToggleButton" aria-label="Открыть меню" aria-haspopup="true" aria-expanded="false">
+    <span aria-hidden="true"></span> 
+  </button>
 
-            <!-- Дублирующий ряд для бесконечной прокрутки -->
-            <div class="tile w-md h-shift-up"><img src="1.png" alt="1"></div>
-            <div class="tile w-lg h-shift-down"><img src="2.jpg" alt="2"></div>
-            <div class="tile w-sm"><img src="3.jpg" alt="3"></div>
-            <div class="tile w-md h-shift-up"><img src="4.jpg" alt="4"></div>
-            <div class="tile w-lg"><img src="5.jpg" alt="5"></div>
-            <div class="tile w-sm h-shift-down"><img src="6.jpg" alt="6"></div>
-            <div class="tile w-md"><img src="7.jpg" alt="7"></div>
-            
-        </div>
+  <!-- Затемняющий фон -->
+  <div id="overlay" tabindex="-1" aria-hidden="true"></div>
+
+  <!-- Всплывающее боковое меню -->
+  <nav id="sideMenu" aria-label="Главное меню" role="menu" tabindex="-1">
+    <a 
+      href="https://wa.me/79640206327" 
+      target="_blank"
+      rel="noopener noreferrer"
+      class="menu-item"
+      role="menuitem"
+      tabindex="0"
+      >Заказать сайт</a>
+    <a 
+      href="tel:+79640206327" 
+      class="menu-item"
+      role="menuitem"
+      tabindex="0"
+      >Связаться</a>
+  </nav>
+
+  <!-- Основной контент -->
+  <main class="content" role="main" aria-label="Основное содержимое">
+    <h1 class="metal-text">Закажите сайт любой сложности</h1>
+    <p class="metal-subtitle">для заказа сайта свяжитесь с нами</p>
+    <button class="glass-button" id="openFormBtn" aria-haspopup="dialog" aria-controls="confirmationModal">Связаться</button>
+  </main>
+
+  <!-- Модальное окно согласия на обработку персональных данных -->
+  <div id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmDesc" tabindex="-1">
+    <div class="modal" role="document" tabindex="0">
+      <h2 id="confirmTitle">Согласие на обработку данных</h2>
+      <p id="confirmDesc" class="message">
+        Подтвердите, что вы согласны на обработку персональных данных для связи с вами.
+      </p>
+      <button class="confirm-button" id="confirmConsentBtn">Я согласен</button>
     </div>
+  </div>
 
-    <!-- Вернувшееся наполнение сайта: карточка со спецификациями -->
-    <div class="card">
-        <h2>Архитектура кода</h2>
-        <ul class="spec-list">
-            <li class="spec-item">
-                <span class="spec-label">Технология разметки</span>
-                <span class="spec-value">HTML5 Семантика</span>
-            </li>
-            <li class="spec-item">
-                <span class="spec-label">Стилизация</span>
-                <span class="spec-value">CSS3 Glassmorphism</span>
-            </li>
-            <li class="spec-item">
-                <span class="spec-label">Галерея медиа</span>
-                <span class="spec-value">Asymmetric Masonry 2x</span>
-            </li>
-        </ul>
-    </div>
+  <script>
+    // Элементы
+    const menuToggleButton = document.getElementById('menuToggleButton');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
 
-    <!-- Интерактивная кнопка и ссылка -->
-    <button class="cta-button" onclick="alert('Успешно интегрировано в вашу систему.')">Активировать код</button>
-    <a href="https://apple.com" class="apple-link">Подробнее на apple.com ›</a>
+    const openFormBtn = document.getElementById('openFormBtn');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const confirmConsentBtn = document.getElementById('confirmConsentBtn');
 
-    <!-- Логика движения и зацепа мыши -->
-    <script>
-        const wrapper = document.getElementById('scrollWrapper');
-        const grid = document.getElementById('masonryGrid');
-        
-        let autoScrollSpeed = 0.4; 
-        let isMoving = true;
-        let isDown = false;
-        let startX, scrollLeft;
+    /** Открыть меню **/
+    function openMenu() {
+      sideMenu.classList.add('active');
+      overlay.classList.add('active');
+      menuToggleButton.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      // Фокус на первый элемент меню
+      const firstMenuItem = sideMenu.querySelector('a.menu-item');
+      if (firstMenuItem) firstMenuItem.focus();
+    }
+    /** Закрыть меню **/
+    function closeMenu() {
+      sideMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      menuToggleButton.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      menuToggleButton.focus();
+    }
 
-        function step() {
-            if (isMoving && !isDown) {
-                wrapper.scrollLeft += autoScrollSpeed;
-                wrapper.scrollLeft += autoScrollSpeed;
-                
-                // Цикличность: когда прокрутили половину, незаметно возвращаем в начало
-                if (wrapper.scrollLeft >= grid.offsetWidth / 2) {
-                    wrapper.scrollLeft = 0;
-                }
-            }
-            requestAnimationFrame(step);
-        }
-        
-        // Запуск авто-прокрутки
-        requestAnimationFrame(step);
+    menuToggleButton.addEventListener('click', () => {
+      if (sideMenu.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
 
-        // Пауза движения при наведении мыши
-        wrapper.addEventListener('mouseenter', () => isMoving = false);
-        wrapper.addEventListener('mouseleave', () => isMoving = true);
+    // Закрытие меню при клике на overlay
+    overlay.addEventListener('click', closeMenu);
 
-        // Логика ручного перетаскивания (Drag-to-scroll)
-        wrapper.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - wrapper.offsetLeft;
-            scrollLeft = wrapper.scrollLeft;
-        });
+    // Обработка клавиш в меню - focus trap и Esc
+    sideMenu.addEventListener('keydown', (e) => {
+      const focusableEls = sideMenu.querySelectorAll('a.menu-item');
+      const firstFocusable = focusableEls[0];
+      const lastFocusable = focusableEls[focusableEls.length - 1];
 
-        wrapper.addEventListener('mouseleave', () => isDown = false);
-        wrapper.addEventListener('mouseup', () => isDown = false);
-
-        wrapper.addEventListener('mousemove', (e) => {
-            if(!isDown) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+      }
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusable) {
             e.preventDefault();
-            const x = e.pageX - wrapper.offsetLeft;
-            const walk = (x - startX) * 1.5; 
-            wrapper.scrollLeft = scrollLeft - walk;
-        });
-    </script>
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            e.preventDefault();
+            firstFocusable.focus();
+          }
+        }
+      }
+    });
+
+    // Закрывать меню при клике по пункту меню
+    sideMenu.querySelectorAll('a.menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // --- Модальное окно согласия на обработку персональных данных ---
+
+    // Функция показать модалку
+    function showConfirmationModal() {
+      confirmationModal.classList.add('active');
+      confirmationModal.querySelector('.modal').focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Функция закрыть модалку
+    function closeConfirmationModal() {
+      confirmationModal.classList.remove('active');
+      document.body.style.overflow = '';
+      openFormBtn.focus();
+    }
+
+    // Открываем модалку при клике на "Связаться" в основном контенте
+    if (openFormBtn) {
+      openFormBtn.addEventListener('click', () => {
+        showConfirmationModal();
+      });
+    }
+
+    // Закрываем модалку при клике на кнопку согласия
+    if (confirmConsentBtn) {
+      confirmConsentBtn.addEventListener('click', () => {
+        closeConfirmationModal();
+        // Далее логика после согласия может быть добавлена (всплывающее окно, форма и т.п.)
+        // Сейчас просто закрываем модалку
+      });
+    }
+
+    // Закрытие модалки по клику вне контента модалки
+    confirmationModal.addEventListener('click', (e) => {
+      if (e.target === confirmationModal) {
+        closeConfirmationModal();
+      }
+    });
+
+    // Закрытие модалки с клавиатуры
+    confirmationModal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeConfirmationModal();
+      }
+      // Trap focus внутри модалки
+      if (e.key === 'Tab') {
+        const focusableEls = confirmationModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableEls.length === 0) return;
+        const firstFocusable = focusableEls[0];
+        const lastFocusable = focusableEls[focusableEls.length -1];
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            e.preventDefault();
+            firstFocusable.focus();
+          }
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
